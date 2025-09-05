@@ -12,9 +12,23 @@ export function activate(context: vscode.ExtensionContext) {
         }
         const workspaceRoot = workspaceFolders[0].uri.fsPath;
 
+        let basePath = workspaceRoot;
+        const activeEditor = vscode.window.activeTextEditor;
+
+        if (activeEditor) {
+            const activeFilePath = activeEditor.document.uri.fsPath;
+            if (!activeFilePath.startsWith(workspaceRoot)) {
+                vscode.window.showWarningMessage('현재 열려있는 파일이 작업 공간(workspace)에 속해있지 않습니다.');
+                return;
+            }
+            basePath = path.dirname(activeFilePath);
+        }
+
         const relativePath = await vscode.window.showInputBox({
-            prompt: '생성할 파일의 상대 경로를 입력하세요.',
-            placeHolder: '예: src/components/Button.tsx',
+            prompt: '생성할 파일의 경로를 입력하세요.',
+            value: basePath.replace(workspaceRoot, '') + path.sep,
+            valueSelection: [basePath.length - workspaceRoot.length + 1, -1],
+            placeHolder: '예: components/Button.tsx',
             validateInput: text => {
                 if (!text || text.trim().length === 0) {
                     return '파일 경로를 입력해야 합니다.';
