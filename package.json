@@ -24,12 +24,7 @@
       {
         "command": "file-creator.createFile",
         "key": "ctrl+alt+p",
-        "when": "!isMac"
-      },
-      {
-        "command": "file-creator.createFile",
-        "key": "cmd+option+p",
-        "when": "isMac"
+        "mac": "cmd+option+p"
       }
     ]
   },
