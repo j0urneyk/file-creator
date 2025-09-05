@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartup"
+    "onCommand:file-creator.createFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -26,7 +26,16 @@
         "key": "ctrl+alt+p",
         "mac": "cmd+option+p"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "resourceLangId",
+          "command": "file-creator.createFile",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
