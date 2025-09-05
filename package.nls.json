@@ -1,0 +1,5 @@
+{
+  "displayName": "File Creator",
+  "description": "A VSCode extension to quickly create files with a command.",
+  "command.createFile.title": "Create File"
+}

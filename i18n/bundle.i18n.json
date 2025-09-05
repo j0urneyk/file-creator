@@ -1,0 +1,15 @@
+{
+  "error.noWorkspace": "Please open a workspace folder first to create a file.",
+  "warning.fileNotInWorkspace": "The currently open file does not belong to the workspace.",
+  "prompt.enterFilePath": "Enter the path for the file to be created.",
+  "prompt.placeholder": "e.g., src/components/Button.tsx",
+  "validation.emptyPath": "A file path must be entered.",
+  "validation.invalidSegment": "The path segment \"{0}\" contains invalid characters.",
+  "validation.endsWithSeparator": "The path cannot end with a directory separator.",
+  "prompt.fileExists": "File already exists: {0}. Overwrite?",
+  "info.creationCancelled": "File creation was cancelled.",
+  "info.creationSuccess": "File successfully created: {0}",
+  "error.noPermissions": "Permission denied. Please check folder permissions to create the file.",
+  "error.creationError": "Error creating file: {0}",
+  "error.unknownCreationError": "An unknown error occurred while creating the file."
+}

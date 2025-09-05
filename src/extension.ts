@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as nls from 'vscode-nls';
+
+const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
 
 export function activate(context: vscode.ExtensionContext) {
     const command = 'file-creator.createFile';
@@ -7,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
     const commandHandler = async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
-            vscode.window.showErrorMessage('파일을 생성하기 위해선 먼저 작업 폴더를 열어주세요.');
+            vscode.window.showErrorMessage(localize('error.noWorkspace', 'Please open a workspace folder first to create a file.'));
             return;
         }
         const workspaceRoot = workspaceFolders[0].uri.fsPath;
@@ -18,32 +21,32 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor) {
             const activeFilePath = activeEditor.document.uri.fsPath;
             if (!activeFilePath.startsWith(workspaceRoot)) {
-                vscode.window.showWarningMessage('현재 열려있는 파일이 작업 공간(workspace)에 속해있지 않습니다.');
+                vscode.window.showWarningMessage(localize('warning.fileNotInWorkspace', 'The currently open file does not belong to the workspace.'));
                 return;
             }
             basePath = path.dirname(activeFilePath);
         }
 
         const relativePath = await vscode.window.showInputBox({
-            prompt: '생성할 파일의 경로를 입력하세요.',
+            prompt: localize('prompt.enterFilePath', 'Enter the path for the file to be created.'),
             value: basePath.replace(workspaceRoot, '') + path.sep,
             valueSelection: [basePath.length - workspaceRoot.length + 1, -1],
-            placeHolder: '예: components/Button.tsx',
+            placeHolder: localize('prompt.placeholder', 'e.g., src/components/Button.tsx'),
             validateInput: text => {
                 if (!text || text.trim().length === 0) {
-                    return '파일 경로를 입력해야 합니다.';
+                    return localize('validation.emptyPath', 'A file path must be entered.');
                 }
                 const invalidCharsRegex = /[<>:"\\|?*]/;
                 const pathSegments = text.split(path.sep);
 
                 for (const segment of pathSegments) {
                     if (invalidCharsRegex.test(segment)) {
-                        return `경로명 "${segment}"에 유효하지 않은 문자가 포함되어 있습니다.`;
+                        return localize('validation.invalidSegment', 'The path segment "{0}" contains invalid characters.', segment);
                     }
                 }
 
                 if (text.endsWith(path.sep) || text.endsWith('/')) {
-                    return '경로가 디렉터리 구분자로 끝날 수 없습니다.';
+                    return localize('validation.endsWithSeparator', 'The path cannot end with a directory separator.');
                 }
 
                 return null;
@@ -60,16 +63,15 @@ export function activate(context: vscode.ExtensionContext) {
         try {
             await vscode.workspace.fs.stat(fileUri);
             const answer = await vscode.window.showQuickPick(['Yes', 'No'], {
-                placeHolder: `파일이 이미 존재합니다: ${relativePath}. 덮어쓰시겠습니까?`
+                placeHolder: localize('prompt.fileExists', 'File already exists: {0}. Overwrite?', relativePath)
             });
 
             if (answer !== 'Yes') {
-                vscode.window.showInformationMessage('파일 생성이 취소되었습니다.');
+                vscode.window.showInformationMessage(localize('info.creationCancelled', 'File creation was cancelled.'));
                 return;
             }
         } catch (error) {
             // File does not exist, which is what we want.
-            // We can proceed.
         }
 
         try {
@@ -81,15 +83,15 @@ export function activate(context: vscode.ExtensionContext) {
             const document = await vscode.workspace.openTextDocument(fileUri);
             await vscode.window.showTextDocument(document);
 
-            vscode.window.showInformationMessage(`파일이 성공적으로 생성되었습니다: ${relativePath}`);
+            vscode.window.showInformationMessage(localize('info.creationSuccess', 'File successfully created: {0}', relativePath));
 
         } catch (error) {
             if (error instanceof vscode.FileSystemError && error.code === 'NoPermissions') {
-                vscode.window.showErrorMessage('파일을 생성할 권한이 없습니다. 폴더 권한을 확인해주세요.');
+                vscode.window.showErrorMessage(localize('error.noPermissions', 'Permission denied. Please check folder permissions to create the file.'));
             } else if (error instanceof Error) {
-                vscode.window.showErrorMessage(`파일 생성 중 오류가 발생했습니다: ${error.message}`);
+                vscode.window.showErrorMessage(localize('error.creationError', 'Error creating file: {0}', error.message));
             } else {
-                vscode.window.showErrorMessage(`파일 생성 중 알 수 없는 오류가 발생했습니다.`);
+                vscode.window.showErrorMessage(localize('error.unknownCreationError', 'An unknown error occurred while creating the file.'));
             }
         }
     };

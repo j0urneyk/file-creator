@@ -1,0 +1,5 @@
+{
+  "displayName": "파일 생성기",
+  "description": "명령어를 사용하여 파일을 빠르게 생성하는 VSCode 확장 프로그램입니다.",
+  "command.createFile.title": "파일 생성"
+}
