@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+
+# Build output
+out
+dist
+
+# VSCode extension packaging
+*.vsix
+
+# VSCode Test runner
+.vscode-test/
+
+# Mac specific
+.DS_Store

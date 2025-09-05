@@ -1,0 +1,13 @@
+.vscode
+.vscode-test
+node_modules
+out/test
+src
+.gitignore
+vsc-extension-quickstart.md
+**/tsconfig.json
+**/.eslintrc.json
+**/webpack.config.js
+**/.vscode-test.mjs
+**/.vscode-test-web.mjs
+**/jest.config.js
