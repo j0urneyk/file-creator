@@ -21,8 +21,8 @@
     "keybindings": [
       {
         "command": "file-creator.createFile",
-        "key": "ctrl+alt+p",
-        "mac": "cmd+option+p"
+        "key": "ctrl+1",
+        "mac": "cmd+1"
       }
     ]
   },
