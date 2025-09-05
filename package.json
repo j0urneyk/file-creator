@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:file-creator.createFile"
+    "onStartup"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -23,8 +23,8 @@
     "keybindings": [
       {
         "command": "file-creator.createFile",
-        "key": "ctrl+alt+shift+c",
-        "mac": "cmd+option+shift+c"
+        "key": "ctrl+alt+p",
+        "mac": "cmd+option+p"
       }
     ]
   },
