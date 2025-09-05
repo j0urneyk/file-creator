@@ -23,8 +23,8 @@
     "keybindings": [
       {
         "command": "file-creator.createFile",
-        "key": "ctrl+alt+p",
-        "mac": "cmd+option+p"
+        "key": "ctrl+alt+shift+c",
+        "mac": "cmd+option+shift+c"
       }
     ]
   },
