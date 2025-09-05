@@ -24,18 +24,14 @@
       {
         "command": "file-creator.createFile",
         "key": "ctrl+alt+p",
-        "mac": "cmd+option+p"
+        "when": "!isMac"
+      },
+      {
+        "command": "file-creator.createFile",
+        "key": "cmd+option+p",
+        "when": "isMac"
       }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "resourceLangId",
-          "command": "file-creator.createFile",
-          "group": "navigation"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
