@@ -9,6 +9,7 @@
     "url": "https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git"
   },
   "icon": "images/icon.png",
+  "l10n": "./",
   "engines": {
     "vscode": "^1.82.0"
   },
@@ -35,6 +36,7 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
+    "postcompile": "cp -r i18n out/ && cp package.nls.*.json out/",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",

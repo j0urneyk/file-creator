@@ -2,9 +2,12 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as nls from 'vscode-nls';
 
-const localize = nls.config({ messageFormat: nls.MessageFormat.file })();
+let localize: nls.LocalizeFunc;
 
 export function activate(context: vscode.ExtensionContext) {
+    // Initialize nls function
+    localize = nls.loadMessageBundle();
+
     const command = 'file-creator.createFile';
 
     const commandHandler = async () => {
