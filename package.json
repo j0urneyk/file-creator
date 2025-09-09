@@ -36,7 +36,7 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "postcompile": "cp -r i18n out/ && cp package.nls.*.json out/",
+    "postcompile": "cp -r i18n out/ && cp package.nls.json out/ && cp package.nls.ko.json out/",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
