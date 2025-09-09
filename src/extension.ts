@@ -1,19 +1,13 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as nls from 'vscode-nls';
-
-let localize: nls.LocalizeFunc;
 
 export function activate(context: vscode.ExtensionContext) {
-    // Initialize nls function
-    localize = nls.loadMessageBundle();
-
     const command = 'file-creator.createFile';
 
     const commandHandler = async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
-            vscode.window.showErrorMessage(localize('error.noWorkspace', 'Please open a workspace folder first to create a file.'));
+            vscode.window.showErrorMessage('Please open a workspace folder first to create a file.');
             return;
         }
         const workspaceRoot = workspaceFolders[0].uri.fsPath;
@@ -24,32 +18,32 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor) {
             const activeFilePath = activeEditor.document.uri.fsPath;
             if (!activeFilePath.startsWith(workspaceRoot)) {
-                vscode.window.showWarningMessage(localize('warning.fileNotInWorkspace', 'The currently open file does not belong to the workspace.'));
+                vscode.window.showWarningMessage('The currently open file does not belong to the workspace.');
                 return;
             }
             basePath = path.dirname(activeFilePath);
         }
 
         const relativePath = await vscode.window.showInputBox({
-            prompt: localize('prompt.enterFilePath', 'Enter the path for the file to be created.'),
+            prompt: 'Enter the path for the file to be created.',
             value: basePath.replace(workspaceRoot, '') + path.sep,
             valueSelection: [basePath.length - workspaceRoot.length + 1, -1],
-            placeHolder: localize('prompt.placeholder', 'e.g., src/components/Button.tsx'),
+            placeHolder: 'e.g., src/components/Button.tsx',
             validateInput: text => {
                 if (!text || text.trim().length === 0) {
-                    return localize('validation.emptyPath', 'A file path must be entered.');
+                    return 'A file path must be entered.';
                 }
                 const invalidCharsRegex = /[<>:"\\|?*]/;
                 const pathSegments = text.split(path.sep);
 
                 for (const segment of pathSegments) {
                     if (invalidCharsRegex.test(segment)) {
-                        return localize('validation.invalidSegment', 'The path segment "{0}" contains invalid characters.', segment);
+                        return `The path segment "${segment}" contains invalid characters.`;
                     }
                 }
 
                 if (text.endsWith(path.sep) || text.endsWith('/')) {
-                    return localize('validation.endsWithSeparator', 'The path cannot end with a directory separator.');
+                    return 'The path cannot end with a directory separator.';
                 }
 
                 return null;
@@ -66,11 +60,11 @@ export function activate(context: vscode.ExtensionContext) {
         try {
             await vscode.workspace.fs.stat(fileUri);
             const answer = await vscode.window.showQuickPick(['Yes', 'No'], {
-                placeHolder: localize('prompt.fileExists', 'File already exists: {0}. Overwrite?', relativePath)
+                placeHolder: `File already exists: ${relativePath}. Overwrite?`
             });
 
             if (answer !== 'Yes') {
-                vscode.window.showInformationMessage(localize('info.creationCancelled', 'File creation was cancelled.'));
+                vscode.window.showInformationMessage('File creation was cancelled.');
                 return;
             }
         } catch (error) {
@@ -86,15 +80,15 @@ export function activate(context: vscode.ExtensionContext) {
             const document = await vscode.workspace.openTextDocument(fileUri);
             await vscode.window.showTextDocument(document);
 
-            vscode.window.showInformationMessage(localize('info.creationSuccess', 'File successfully created: {0}', relativePath));
+            vscode.window.showInformationMessage(`File successfully created: ${relativePath}`);
 
         } catch (error) {
             if (error instanceof vscode.FileSystemError && error.code === 'NoPermissions') {
-                vscode.window.showErrorMessage(localize('error.noPermissions', 'Permission denied. Please check folder permissions to create the file.'));
+                vscode.window.showErrorMessage('Permission denied. Please check folder permissions to create the file.');
             } else if (error instanceof Error) {
-                vscode.window.showErrorMessage(localize('error.creationError', 'Error creating file: {0}', error.message));
+                vscode.window.showErrorMessage(`Error creating file: ${error.message}`);
             } else {
-                vscode.window.showErrorMessage(localize('error.unknownCreationError', 'An unknown error occurred while creating the file.'));
+                vscode.window.showErrorMessage('An unknown error occurred while creating the file.');
             }
         }
     };

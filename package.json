@@ -1,7 +1,7 @@
 {
   "name": "file-creator",
-  "displayName": "%displayName%",
-  "description": "%description%",
+  "displayName": "File Creator",
+  "description": "A VSCode extension to quickly create files with a command.",
   "version": "0.0.1",
   "publisher": "YOUR_PUBLISHER_NAME",
   "repository": {
@@ -21,7 +21,7 @@
     "commands": [
       {
         "command": "file-creator.createFile",
-        "title": "%command.createFile.title%"
+        "title": "Create File"
       }
     ],
     "keybindings": [
@@ -35,7 +35,6 @@
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "postcompile": "cp -r i18n out/ && cp package.nls.json out/ && cp package.nls.ko.json out/",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
@@ -51,8 +50,6 @@
     "glob": "^10.3.3",
     "mocha": "^10.2.0",
     "typescript": "^5.2.2",
-    "@vscode/test-electron": "^2.3.4",
-    "vscode-nls": "^5.0.0",
-    "vscode-nls-dev": "^3.3.1"
+    "@vscode/test-electron": "^2.3.4"
   }
 }
