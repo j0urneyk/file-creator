@@ -1,53 +1,52 @@
-# File Creator VSCode 확장 프로그램
+# File Creator VSCode Extension
 
-이 확장 프로그램은 VSCode에서 단축키를 사용하여 파일을 빠르게 생성하는 기능을 제공합니다.
+This extension provides a command to quickly create files in VSCode using a keyboard shortcut.
 
-## 주요 기능
+## Features
 
-*   **단축키로 빠른 실행**: `Cmd+1` (macOS) 또는 `Ctrl+1` (Windows/Linux) 단축키로 파일 생성을 시작합니다.
-*   **지능형 경로 제안**:
-    *   현재 편집 중인 파일이 있으면, 해당 파일의 디렉터리를 기본 생성 경로로 제안합니다.
-    *   열려 있는 파일이 없으면, 작업 공간(workspace)의 최상위 경로를 기본으로 합니다.
-    *   작업 공간 외부의 파일을 편집 중일 때는, 오류를 방지하기 위해 명령이 실행되지 않습니다.
-*   **자동 폴더 생성**: 파일을 생성하는 경로에 폴더가 존재하지 않으면 자동으로 생성해줍니다.
-*   **덮어쓰기 방지**: 동일한 이름의 파일이 이미 존재할 경우, 덮어쓸지 확인하는 메시지를 표시합니다.
-*   **다국어 지원**: VSCode의 언어 설정에 따라 영어와 한국어를 자동으로 지원합니다.
+*   **Quick File Creation**: Use the `Cmd+1` (macOS) or `Ctrl+1` (Windows/Linux) shortcut to initiate file creation.
+*   **Intelligent Path Suggestion**:
+    *   If a file is currently open in the editor, its directory is used as the default base path for the new file.
+    *   If no file is open, the workspace root is used as the base path.
+    *   The command is disabled if the currently open file is outside the workspace to prevent errors.
+*   **Automatic Folder Creation**: Automatically creates any necessary intermediate directories for your new file.
+*   **Overwrite Protection**: Prompts for confirmation if a file with the same name already exists.
+*   **i18n Ready**: Supports multiple languages based on your VSCode locale.
 
-## 지원 언어
+## Supported Languages
 
-*   English (en) - 기본
-*   한국어 (ko)
+*   English (en) - Default
+*   Korean (ko)
 
-## 로컬 개발 및 테스트 환경 설정
+## Local Development and Testing
 
-이 확장 프로그램을 로컬 환경에서 테스트하고 개발하기 위한 안내입니다.
+Instructions for setting up and testing this extension in a local development environment.
 
-### 사전 준비 사항
+### Prerequisites
 
-*   [Visual Studio Code](https://code.visualstudio.com/) 최신 버전 설치
-*   [Node.js](https://nodejs.org/) (LTS 버전 권장) 및 `npm` 설치
+*   Latest version of [Visual Studio Code](https://code.visualstudio.com/)
+*   [Node.js](https://nodejs.org/) (LTS version recommended) and `npm`
 
-### 테스트를 위한 설치 방법
+### Installation for Testing
 
-1.  이 프로젝트를 로컬 컴퓨터에 클론(clone)하거나 다운로드합니다.
-2.  터미널(Terminal) 또는 명령 프롬프트(Command Prompt)를 열고 프로젝트의 루트 디렉터리로 이동합니다.
-3.  다음 명령어를 실행하여 필요한 의존성 패키지를 설치합니다.
-
+1.  Clone or download this project to your local machine.
+2.  Open a terminal or command prompt and navigate to the project's root directory.
+3.  Run the following command to install the necessary dependencies:
     ```bash
     npm install
     ```
 
-### 확장 프로그램 실행 및 테스트 (개발 모드)
+### Running and Testing the Extension (Development Mode)
 
-1.  VSCode에서 이 프로젝트 폴더를 엽니다.
-2.  **F5** 키를 누릅니다. (또는 `실행 > 디버깅 시작` 메뉴 선택)
-3.  `F5`를 누르면, 확장 프로그램을 실행하기 전에 코드가 자동으로 컴파일됩니다.
-4.  컴파일이 완료되면, **확장 개발 호스트(Extension Development Host)** 라는 새로운 VSCode 창이 열립니다. 이 창은 여러분이 개발 중인 확장 프로그램이 임시로 설치된 특별한 VSCode 인스턴스입니다.
-5.  새로운 VSCode 창에서 테스트할 프로젝트 폴더를 엽니다. (예: `File > Open Folder...`)
-6.  이제 확장 프로그램의 모든 기능을 테스트할 수 있습니다.
+1.  Open this project folder in VSCode.
+2.  Press **F5** to start a debugging session (or select `Run > Start Debugging` from the menu).
+3.  When you press F5, the code will be automatically compiled before the extension is launched.
+4.  Once compilation is complete, a new **Extension Development Host** window will open. This is a special VSCode instance with your extension temporarily installed.
+5.  In the new host window, open any project folder to test the extension (e.g., `File > Open Folder...`).
+6.  You can now test all the features of the extension.
 
-### 디버깅 방법
+### How to Debug
 
-*   원래의 VSCode 창(개발 호스트 창이 아닌)으로 돌아옵니다.
-*   `src/extension.ts` 파일의 코드 라인 번호 왼쪽에 마우스를 클릭하여 중단점(breakpoint)을 설정할 수 있습니다.
-*   확장 개발 호스트 창에서 다시 기능을 실행하면, 코드가 중단점에서 멈추고 변수 값을 확인하거나 코드를 한 줄씩 실행하는 등 디버깅을 할 수 있습니다.
+*   Return to your original VSCode window (the one where this project's code is open).
+*   You can set breakpoints by clicking in the gutter to the left of the line numbers in the `src/extension.ts` file.
+*   When you trigger the functionality in the Extension Development Host window, the code will pause at your breakpoints, allowing you to inspect variables and step through the code.
