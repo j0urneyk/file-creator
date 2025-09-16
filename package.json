@@ -1,12 +1,12 @@
 {
-  "name": "file-creator",
-  "displayName": "File Creator",
+  "name": "file-create-command",
+  "displayName": "File create command",
   "description": "A VSCode extension to quickly create files with a command.",
   "version": "0.0.1",
-  "publisher": "YOUR_PUBLISHER_NAME",
+  "publisher": "file-creator",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git"
+    "url": "https://github.com/j0urneyk/file-creator.git"
   },
   "icon": "images/icon.png",
   "engines": {
